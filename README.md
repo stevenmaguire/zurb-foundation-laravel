@@ -1,5 +1,6 @@
 [![Total Downloads](https://poser.pugx.org/stevenmaguire/foundation/downloads.png)](https://packagist.org/packages/stevenmaguire/foundation)
 [![Latest Stable Version](https://poser.pugx.org/stevenmaguire/foundation/v/stable.png)](https://packagist.org/packages/stevenmaguire/foundation)
+[![Build Status](https://travis-ci.org/stevenmaguire/foundation.png)](https://travis-ci.org/stevenmaguire/foundation)
 
 Foundation 4x4 (Laravel4 Package)
 ==========

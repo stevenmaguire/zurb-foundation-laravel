@@ -1,30 +1,45 @@
 <?php namespace Stevenmaguire\Foundation;
 
-use Illuminate\Config\Repository;
 use Illuminate\Support\MessageBag;
+use Illuminate\Session\Store as Session;
 
 class FormBuilder extends \Illuminate\Html\FormBuilder 
 {	
 
-	/**
-     * Illuminate config repository.
-     *
-     * @var Illuminate\Config\Repository
-     */
-    protected $config;
-
-	/**
-     * Illuminate errors messagebag.
-     *
-     * @var Illuminate\Support\MessageBag
-     */
-    protected $errors;
-
-	public function __construct($html, $url, $token, $translator,Repository $config)
+	public function __construct($html, $url, $token, $translator)
 	{
-		$this->config = $config;
 		parent::__construct($html, $url, $token, $translator);
 	}
+
+	/**
+	 * Check if session in parent class has error
+	 *
+	 * @return bool
+	 */
+    protected function hasError($name = null)
+    {    	
+    	return false;
+    	// TODO: Capture actual session errors and check them!
+    	/*
+    	$errors = $this->getSessionStore()->get('errors');
+    	return $errors->has($name);
+    	*/
+    }
+
+	/**
+	 * Get error text from session in parent class
+	 *
+	 * @return string
+	 */
+    protected function getError($name = null)
+    {    	
+    	return '';
+    	// TODO: Capture actual session errors and check them!
+    	/*    	
+    	$errors = $this->getSessionStore()->get('errors');
+    	return $errors->get($name);
+    	*/
+    }
 
 	/**
 	 * Create a text input field.
@@ -34,12 +49,11 @@ class FormBuilder extends \Illuminate\Html\FormBuilder
 	 * @param  array   $options
 	 * @return string
 	 */
-	public function ftext($name, $options = array())
+	public function text($name, $value = NULL, $options = array())
 	{
 		$this->getErrorClass($name,$options);
 		$tags = array();
-		$tags['label'] = $this->getLabelTag($name,$options);
-		$tags['input'] = $this->text($name, null, $options);
+		$tags['input'] = parent::text($name, $value, $options);
 		$tags['error'] = $this->getErrorTag($name);
 		return implode('',$tags);
 	}
@@ -48,53 +62,56 @@ class FormBuilder extends \Illuminate\Html\FormBuilder
 	 * Create a password input field.
 	 *
 	 * @param  string  $name
+	 * @param  string  $value	 
 	 * @param  array   $options
 	 * @return string
 	 */
-	public function fpassword($name, $options = array())
+	public function password($name, $value = NULL, $options = array())
 	{
 		$this->getErrorClass($name,$options);
 		$tags = array();
-		$tags['label'] = $this->getLabelTag($name,$options);
-		$tags['input'] = $this->input('password',$name, null, $options);
+		$tags['input'] = parent::password($name, $value, $options);
 		$tags['error'] = $this->getErrorTag($name);
 		return implode('',$tags);
 	}	
-
+	
 	/**
-	 * Create a new model based form builder.
+	 * Create a label.
 	 *
-	 * @param  mixed  $model
-	 * @param  array  $options
+	 * @param  string  $name
+	 * @param  string  $value
+	 * @param  array   $options
 	 * @return string
 	 */
-	public function fmodel($model, array $options = array(),MessageBag $errors)
+	public function label($name, $value = NULL, $options = array())
 	{
-		$this->model = $model;
-		$this->errors = $errors;
-		return $this->open($options);
+		$this->getErrorClass($name,$options);
+		return parent::label($name, $value, $options);
 	}	
 
+	/**
+	 * Insert 'error' class in $options array, if error found in session
+	 *
+	 * @param  string  $name
+	 * @param  array   $options ref
+	 * @return void
+	 */
 	private function getErrorClass($name,&$options = array())
 	{
 		if (isset($options['class']))
-			$options['class'] .= ($this->errors->has($name) ? ' error' : '');
-		else if ($this->errors->has($name))
+			$options['class'] .= ($this->hasErrorhas($name) ? ' error' : '');
+		else if ($this->hasError($name))
 			$options['class'] = 'error';
 	}
 
-	private function getLabelTag($name,&$options = array())
-	{
-		if (isset($options['label']))
-		{			
-			$tag = '<label for="'.$name.'" class="'.($this->errors->has($name) ? 'error' : '').'">'.$options['label'].'</label>';
-			unset($options['label']);
-			return $tag;
-		}
-	}
-
+	/**
+	 * Create Foundation 4 "error" label.
+	 *
+	 * @param  string  $name
+	 * @return string
+	 */
 	private function getErrorTag($name)
 	{
-		return ($this->errors->has($name) ? '<small class="error">'.implode(' ',$this->errors->get($name)).'</small>' :'' );
+		return ($this->hasError($name) ? '<small class="error">'.implode(' ',$this->getError($name)).'</small>' :'' );
 	}
 }
