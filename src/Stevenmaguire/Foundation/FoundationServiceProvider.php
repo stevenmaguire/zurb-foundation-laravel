@@ -18,7 +18,8 @@ class FoundationServiceProvider extends HtmlServiceProvider
                 $app['html'], 
                 $app['url'], 
                 $app['session']->getToken(), 
-                $app['translator']);
+                $app['translator'],
+                $app['session.store']->get('errors'));
             return $form->setSessionStore($app['session.store']);
         });
     }

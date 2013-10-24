@@ -21,7 +21,6 @@ class FormBuilder extends \Illuminate\Html\FormBuilder
 	 */
     private function hasError($name = null)
     {    	
-    	// TODO: Capture actual session errors and check them!
     	return $this->local_errors->has($name);
     }
 
@@ -32,7 +31,6 @@ class FormBuilder extends \Illuminate\Html\FormBuilder
 	 */
     private function getError($name = null)
     {    	
-    	// TODO: Capture actual session errors and check them!    	
     	return $this->local_errors->get($name);
     }
 
