@@ -8,7 +8,7 @@ Foundation 4x4 (Laravel4 Package)
 
 ### tl;dr
 
-Build HTML form elements for Foundation 4 inside Laravel 4
+Build HTML form elements for Foundation 4 inside Laravel 4, including validation error handling.
 
 ### Required setup
 
@@ -36,3 +36,69 @@ In your `config/app.php` add `'Stevenmaguire\Foundation\FoundationServiceProvide
 ### Usage
 
 When composing forms using the blade view engine within Laravel 4, this package will intercept basic Form::method requests and compose form elements that are structured for use in a Foundation 4 based presentation.
+
+```html
+<div class="large-8 small-12 columns">
+	{{ Form::model($user,array('route' => 'route.name','class' => 'custom')) }}
+		<fieldset>
+			<legend>Create New Account</legend>				
+			{{ Form::label('name', 'Full Name') }}
+			{{ Form::text('name',$user->name,array('placeholder'=>'Tell us your whole name')) }}
+			{{ Form::label('email', 'Email') }}
+			{{ Form::text('email',$user->email,array('placeholder'=>'Valid email used to login and receive information from us')) }}
+			{{ Form::label('password', 'Password') }}
+			{{ Form::password('password',$user->password,array('placeholder'=>'Gimme your password')) }}
+			{{ Form::submit('Create Account',array('class'=>'button')) }}
+		</fieldset>
+	{{ Form::close() }}
+</div>
+```
+
+will render without errors
+
+```html
+<div class="large-8 small-12 columns">
+	<form accept-charset="UTF-8" action="http://host/action/from/route" class="custom" method="post">
+		<fieldset>
+			<legend>Create New Account</legend> 
+			<label for="name">Full Name</label> 
+			<input id="name" name="name" placeholder="Tell us your whole name" type="text"> 
+			<label for="email">Email</label>
+			<input id="email" name="email" placeholder="Valid email used to login and receive information from us" type="text"> 
+			<label for="password">Password</label> 
+			<input id="password" name="password" placeholder="Gimme your password" type="password" value=""> 
+			<input class="button" type="submit" value="Create Account">
+		</fieldset>
+	</form>
+</div>
+```
+
+and with errors
+
+```php
+$rules = array(
+	'name' => array('required','min:3','max:32','regex:/^[a-z ,.\'-]+$/i'),
+	'email' => array('required','unique:users,email,%%id%%','regex:/^([a-zA-Z0-9])+([a-zA-Z0-9\+\%\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$/'),
+	'password' => array('required')
+	);
+```
+
+```html
+<div class="large-8 small-12 columns">
+	<form accept-charset="UTF-8" action="http://host/action/from/route" class="custom" method="post">
+		<fieldset>
+			<legend>Create New Account</legend> 
+			<label class="error" for="name">Full Name</label> 
+			<input class="error" id="name" name="name" placeholder="Tell us your whole name" type="text" value="">
+			<small class="error">The name field is required.</small> 
+			<label class="error" for="email">Email</label> 
+			<input class="error" id="email" name="email" placeholder="Valid email used to login and receive information from us" type="text" value="">
+			<small class="error">The email field is required.</small> 
+			<label class="error" for="password">Password</label> 
+			<input class="error" id="password" name="password" placeholder="Gimme your password" type="password" value="">
+			<small class="error">The password field is required.</small> 
+			<input class="button" type="submit" value="Create Account">
+		</fieldset>
+	</form>
+</div>
+```
