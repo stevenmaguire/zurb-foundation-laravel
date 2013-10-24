@@ -19,7 +19,7 @@ class FormBuilder extends \Illuminate\Html\FormBuilder
 	 *
 	 * @return bool
 	 */
-    protected function hasError($name = null)
+    private function hasError($name = null)
     {    	
     	// TODO: Capture actual session errors and check them!
     	return $this->local_errors->has($name);
@@ -30,7 +30,7 @@ class FormBuilder extends \Illuminate\Html\FormBuilder
 	 *
 	 * @return string
 	 */
-    protected function getError($name = null)
+    private function getError($name = null)
     {    	
     	// TODO: Capture actual session errors and check them!    	
     	return $this->local_errors->get($name);
@@ -65,7 +65,7 @@ class FormBuilder extends \Illuminate\Html\FormBuilder
 	{
 		$this->getErrorClass($name,$options);
 		$tags = array();
-		$tags['input'] = parent::password($name, $value, $options);
+		$tags['input'] = parent::password($name, $options);
 		$tags['error'] = $this->getErrorTag($name);
 		return implode('',$tags);
 	}	
