@@ -1,13 +1,16 @@
 <?php namespace Stevenmaguire\Foundation;
 
-use Illuminate\Support\MessageBag;
+use Illuminate\Support\MessageBag as MessageBag;
 use Illuminate\Session\Store as Session;
 
 class FormBuilder extends \Illuminate\Html\FormBuilder 
 {	
 
-	public function __construct($html, $url, $token, $translator)
+	protected $local_errors;
+
+	public function __construct($html, $url, $token, $translator, $errors = null)
 	{
+		$this->local_errors = ($errors != null ? $errors : new MessageBag);
 		parent::__construct($html, $url, $token, $translator);
 	}
 
@@ -18,12 +21,8 @@ class FormBuilder extends \Illuminate\Html\FormBuilder
 	 */
     protected function hasError($name = null)
     {    	
-    	return false;
     	// TODO: Capture actual session errors and check them!
-    	/*
-    	$errors = $this->getSessionStore()->get('errors');
-    	return $errors->has($name);
-    	*/
+    	return $this->local_errors->has($name);
     }
 
 	/**
@@ -33,12 +32,8 @@ class FormBuilder extends \Illuminate\Html\FormBuilder
 	 */
     protected function getError($name = null)
     {    	
-    	return '';
-    	// TODO: Capture actual session errors and check them!
-    	/*    	
-    	$errors = $this->getSessionStore()->get('errors');
-    	return $errors->get($name);
-    	*/
+    	// TODO: Capture actual session errors and check them!    	
+    	return $this->local_errors->get($name);
     }
 
 	/**
