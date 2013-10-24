@@ -16,15 +16,10 @@
     "require-dev": {
         "mockery/mockery": "0.7.2"
     },
-    "autoload": {
+    "autoload": {        
         "psr-0": {
             "Stevenmaguire\\Foundation": "src/"
         }
     },
-    "minimum-stability": "dev",
-    "scripts": {
-        "post-package-install": [
-            "php artisan config:publish --path=\"./src/config\" stevenmaguire/foundation"
-        ]
-    }
+    "minimum-stability": "dev"
 }
