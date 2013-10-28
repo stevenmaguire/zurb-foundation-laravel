@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "b2e96456530d8ee24335dbf9876216a4",
+    "hash": "8cc55ba19fd498648570c8b71a18eebd",
     "packages": [
         {
             "name": "illuminate/cache",
@@ -160,12 +160,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/html.git",
-                "reference": "430bc6fcdd0726547b470d79833d14d4db91a3fe"
+                "reference": "c2192c58918fca1eb6faf07ad30bac8ea82c516d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/html/zipball/430bc6fcdd0726547b470d79833d14d4db91a3fe",
-                "reference": "430bc6fcdd0726547b470d79833d14d4db91a3fe",
+                "url": "https://api.github.com/repos/illuminate/html/zipball/c2192c58918fca1eb6faf07ad30bac8ea82c516d",
+                "reference": "c2192c58918fca1eb6faf07ad30bac8ea82c516d",
                 "shasum": ""
             },
             "require": {
@@ -201,7 +201,7 @@
                     "role": "Developer"
                 }
             ],
-            "time": "2013-10-02 16:10:53"
+            "time": "2013-10-24 16:24:18"
         },
         {
             "name": "illuminate/http",
@@ -916,12 +916,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "608960cd7f7e906e64d6586b9152e308f7ea0ff2"
+                "reference": "662a2922e0bcb3669e66ab36c20ce508c68b1d46"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/608960cd7f7e906e64d6586b9152e308f7ea0ff2",
-                "reference": "608960cd7f7e906e64d6586b9152e308f7ea0ff2",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/662a2922e0bcb3669e66ab36c20ce508c68b1d46",
+                "reference": "662a2922e0bcb3669e66ab36c20ce508c68b1d46",
                 "shasum": ""
             },
             "require": {
@@ -960,7 +960,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2013-10-16 16:16:10"
+            "time": "2013-10-23 08:18:42"
         },
         {
             "name": "symfony/debug",
@@ -1172,12 +1172,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpKernel.git",
-                "reference": "cc1dab5ef88e9bdaa6e5e0b4df921ab0d793f68d"
+                "reference": "dce9c5096d8f1460af901e3899f88e9d3c1cec1b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/cc1dab5ef88e9bdaa6e5e0b4df921ab0d793f68d",
-                "reference": "cc1dab5ef88e9bdaa6e5e0b4df921ab0d793f68d",
+                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/dce9c5096d8f1460af901e3899f88e9d3c1cec1b",
+                "reference": "dce9c5096d8f1460af901e3899f88e9d3c1cec1b",
                 "shasum": ""
             },
             "require": {
@@ -1234,7 +1234,7 @@
             ],
             "description": "Symfony HttpKernel Component",
             "homepage": "http://symfony.com",
-            "time": "2013-10-10 14:16:40"
+            "time": "2013-10-28 14:46:04"
         },
         {
             "name": "symfony/routing",

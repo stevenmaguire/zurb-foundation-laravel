@@ -69,6 +69,23 @@ class FormBuilder extends \Illuminate\Html\FormBuilder
 	}	
 	
 	/**
+	 * Create a textarea input.
+	 *
+	 * @param  string  $name
+	 * @param  string  $value
+	 * @param  array   $options
+	 * @return string
+	 */
+	public function textarea($name, $value = null, $options = array())
+	{
+		$this->getErrorClass($name,$options);
+		$tags = array();
+		$tags['input'] = parent::textarea($name, $value, $options);
+		$tags['error'] = $this->getErrorTag($name);
+		return implode('',$tags);
+	}	
+
+	/**
 	 * Create a label.
 	 *
 	 * @param  string  $name
