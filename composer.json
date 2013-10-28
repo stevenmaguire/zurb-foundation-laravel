@@ -1,5 +1,5 @@
 {
-    "name": "stevenmaguire/foundation",
+    "name": "zurb-foundation-laravel",
     "description": "Build HTML form elements for Foundation 4 inside Laravel 4",
     "authors": [
         {
