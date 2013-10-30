@@ -3,8 +3,8 @@
 use Illuminate\Support\MessageBag as MessageBag;
 use Illuminate\Session\Store as Session;
 
-class FormBuilder extends \Illuminate\Html\FormBuilder 
-{	
+class FormBuilder extends \Illuminate\Html\FormBuilder
+{
 
 	protected $local_errors;
 
@@ -20,7 +20,7 @@ class FormBuilder extends \Illuminate\Html\FormBuilder
 	 * @return bool
 	 */
     private function hasError($name = null)
-    {    	
+    {
     	return $this->local_errors->has($name);
     }
 
@@ -30,7 +30,7 @@ class FormBuilder extends \Illuminate\Html\FormBuilder
 	 * @return string
 	 */
     private function getError($name = null)
-    {    	
+    {
     	return $this->local_errors->get($name);
     }
 
@@ -50,12 +50,12 @@ class FormBuilder extends \Illuminate\Html\FormBuilder
 		$tags['error'] = $this->getErrorTag($name);
 		return implode('',$tags);
 	}
-	
+
 	/**
 	 * Create a password input field.
 	 *
 	 * @param  string  $name
-	 * @param  string  $value	 
+	 * @param  string  $value
 	 * @param  array   $options
 	 * @return string
 	 */
@@ -66,8 +66,8 @@ class FormBuilder extends \Illuminate\Html\FormBuilder
 		$tags['input'] = parent::password($name, $options);
 		$tags['error'] = $this->getErrorTag($name);
 		return implode('',$tags);
-	}	
-	
+	}
+
 	/**
 	 * Create a textarea input.
 	 *
@@ -83,7 +83,7 @@ class FormBuilder extends \Illuminate\Html\FormBuilder
 		$tags['input'] = parent::textarea($name, $value, $options);
 		$tags['error'] = $this->getErrorTag($name);
 		return implode('',$tags);
-	}	
+	}
 
 	/**
 	 * Create a label.
@@ -109,7 +109,7 @@ class FormBuilder extends \Illuminate\Html\FormBuilder
 	private function getErrorClass($name,&$options = array())
 	{
 		if (isset($options['class']))
-			$options['class'] .= ($this->hasErrorhas($name) ? ' error' : '');
+			$options['class'] .= ($this->hasError($name) ? ' error' : '');
 		else if ($this->hasError($name))
 			$options['class'] = 'error';
 	}
