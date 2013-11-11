@@ -69,6 +69,23 @@ class FormBuilder extends \Illuminate\Html\FormBuilder
 	}
 
 	/**
+	 * Create a email input field.
+	 *
+	 * @param  string  $name
+	 * @param  string  $value
+	 * @param  array   $options
+	 * @return string
+	 */
+	public function email($name, $value = NULL, $options = array())
+	{
+		$this->getErrorClass($name,$options);
+		$tags = array();
+		$tags['input'] = parent::email($name, $value, $options);
+		$tags['error'] = $this->getErrorTag($name);
+		return implode('',$tags);
+	}
+
+	/**
 	 * Create a textarea input.
 	 *
 	 * @param  string  $name
