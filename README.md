@@ -2,6 +2,7 @@
 [![Latest Stable Version](https://poser.pugx.org/stevenmaguire/zurb-foundation-laravel/v/stable.png)](https://packagist.org/packages/stevenmaguire/zurb-foundation-laravel)
 [![Build Status](https://travis-ci.org/stevenmaguire/zurb-foundation-laravel.png)](https://travis-ci.org/stevenmaguire/zurb-foundation-laravel)
 [![Coverage Status](https://coveralls.io/repos/stevenmaguire/zurb-foundation-laravel/badge.png)](https://coveralls.io/r/stevenmaguire/zurb-foundation-laravel)
+[![ProjectStatus](http://stillmaintained.com/stevenmaguire/zurb-foundation-laravel.png)](http://stillmaintained.com/stevenmaguire/zurb-foundation-laravel)
 
 Foundation 4x4 (Laravel4 Package)
 ==========
