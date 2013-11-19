@@ -15,7 +15,7 @@ Build HTML form elements for Foundation 4 inside Laravel 4, including validation
 
 In the `require` key of `composer.json` file add the following
 
-    "stevenmaguire/foundation": "dev-master"
+    "stevenmaguire/zurb-foundation-laravel": "dev-master"
 
 Run the Composer update comand
 
