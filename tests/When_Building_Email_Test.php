@@ -30,7 +30,6 @@ class When_Building_Email_Test extends PHPUnit_Framework_TestCase {
         $this->errors->shouldReceive('has')->with($name)->twice()->andReturn(false);
         
         $result = $this->form->email($name);
-        print_r($result);
         $this->assertTrue(strpos($result,'name="'.$name.'"') !== false
             && strpos($result,'<input') !== false
             && strpos($result,'type="email"') !== false);
