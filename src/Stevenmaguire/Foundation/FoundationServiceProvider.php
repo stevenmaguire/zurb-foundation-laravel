@@ -17,7 +17,7 @@ class FoundationServiceProvider extends HtmlServiceProvider
             $form = new FormBuilder(
                 $app['html'], 
                 $app['url'], 
-                $app['session']->getToken(), 
+                $app['session.store']->getToken(), 
                 $app['translator'],
                 $app['session.store']->get('errors'));
             return $form->setSessionStore($app['session.store']);
