@@ -9,14 +9,14 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "illuminate/support": "4.2.*",
-        "illuminate/session": "4.2.*",
-        "illuminate/html": "4.2.*"
+        "illuminate/support": "~4.1",
+        "illuminate/session": "~4.1",
+        "illuminate/html": "~4.1"
     },
     "require-dev": {
         "mockery/mockery": ">=0.8.0",
-        "illuminate/routing": "4.2.*",
-        "illuminate/translation": "4.2.*",
+        "illuminate/routing": "~4.1",
+        "illuminate/translation": "~4.1",
         "satooshi/php-coveralls": "dev-master"
     },
     "autoload": {
