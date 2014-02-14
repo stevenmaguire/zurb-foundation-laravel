@@ -63,6 +63,7 @@ class FormBuilder extends \Illuminate\Html\FormBuilder
 	{
 		$this->getErrorClass($name,$options);
 		$tags = array();
+		$options += $value; // Special HTML5 placeholder support.
 		$tags['input'] = parent::password($name, $options);
 		$tags['error'] = $this->getErrorTag($name);
 		return implode('',$tags);
