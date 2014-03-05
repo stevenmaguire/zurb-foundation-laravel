@@ -103,6 +103,60 @@ class FormBuilder extends \Illuminate\Html\FormBuilder
 	}
 
 	/**
+	 * Create a select box field.
+	 *
+	 * @param  string  $name
+	 * @param  array   $list
+	 * @param  string  $selected
+	 * @param  array   $options
+	 * @return string
+	 */
+	public function select($name, $list = array(), $selected = null, $options = array())
+	{
+		$this->getErrorClass($name,$options);
+		$tags = array();
+		$tags['input'] = parent::select($name, $list, $selected, $options);
+		$tags['error'] = $this->getErrorTag($name);
+		return implode('',$tags);		
+	}
+
+	/**
+	 * Create a select range field.
+	 *
+	 * @param  string  $name
+	 * @param  string  $begin
+	 * @param  string  $end
+	 * @param  string  $selected
+	 * @param  array   $options
+	 * @return string
+	 */
+	public function selectRange($name, $begin, $end, $selected = null, $options = array())
+	{
+		$this->getErrorClass($name,$options);
+		$tags = array();
+		$tags['input'] = parent::selectRange($name, $begin, $end, $selected, $options);
+		$tags['error'] = $this->getErrorTag($name);
+		return implode('',$tags);				
+	}
+
+	/**
+	 * Create a select month field.
+	 *
+	 * @param  string  $name
+	 * @param  string  $selected
+	 * @param  array   $options
+	 * @return string
+	 */
+	public function selectMonth($name, $selected = null, $options = array())
+	{
+		$this->getErrorClass($name,$options);
+		$tags = array();
+		$tags['input'] = parent::selectMonth($name, $selected, $options);
+		$tags['error'] = $this->getErrorTag($name);
+		return implode('',$tags);				
+	}
+
+	/**
 	 * Create a label.
 	 *
 	 * @param  string  $name
