@@ -4,12 +4,12 @@
 [![Coverage Status](https://coveralls.io/repos/stevenmaguire/zurb-foundation-laravel/badge.png)](https://coveralls.io/r/stevenmaguire/zurb-foundation-laravel)
 [![ProjectStatus](http://stillmaintained.com/stevenmaguire/zurb-foundation-laravel.png)](http://stillmaintained.com/stevenmaguire/zurb-foundation-laravel)
 
-Foundation 4x4 (Laravel4 Package)
+Foundation Laravel (Laravel4 Package)
 ==========
 
 ### tl;dr
 
-Build HTML form elements for Foundation 4 inside Laravel 4, including validation error handling. Documentation for the respective frameworks can be found at [Foundation website](http://foundation.zurb.com/docs) and [Laravel website](http://laravel.com/docs).
+Build HTML form elements for Foundation inside Laravel 4, including validation error handling. Documentation for the respective frameworks can be found at [Foundation website](http://foundation.zurb.com/docs) and [Laravel website](http://laravel.com/docs).
 
 ### Required setup
 
