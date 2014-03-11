@@ -103,3 +103,14 @@ $rules = array(
 	</form>
 </div>
 ```
+
+### Currently supported methods
+
+* text
+* password
+* email
+* textarea
+* select
+* selectRange
+* selectMonth
+* label
