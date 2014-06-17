@@ -34,56 +34,6 @@ class FormBuilder extends \Illuminate\Html\FormBuilder
         return $this->local_errors->get($name);
     }
 
-    /**
-     * Create a text input field.
-     *
-     * @param  string  $name
-     * @param  string  $value
-     * @param  array   $options
-     * @return string
-     */
-    public function text($name, $value = NULL, $options = array())
-    {
-        $this->getErrorClass($name,$options);
-        $tags = array();
-        $tags['input'] = parent::text($name, $value, $options);
-        $tags['error'] = $this->getErrorTag($name);
-        return implode('',$tags);
-    }
-
-    /**
-     * Create a password input field.
-     *
-     * @param  string  $name
-     * @param  string  $value
-     * @param  array   $options
-     * @return string
-     */
-    public function password($name, $value = NULL, $options = array())
-    {
-        $this->getErrorClass($name,$options);
-        $tags = array();
-        $tags['input'] = parent::password($name, $options);
-        $tags['error'] = $this->getErrorTag($name);
-        return implode('',$tags);
-    }
-
-    /**
-     * Create a email input field.
-     *
-     * @param  string  $name
-     * @param  string  $value
-     * @param  array   $options
-     * @return string
-     */
-    public function email($name, $value = NULL, $options = array())
-    {
-        $this->getErrorClass($name,$options);
-        $tags = array();
-        $tags['input'] = parent::email($name, $value, $options);
-        $tags['error'] = $this->getErrorTag($name);
-        return implode('',$tags);
-    }
 
     /**
      * Create a textarea input.
@@ -120,41 +70,6 @@ class FormBuilder extends \Illuminate\Html\FormBuilder
         return implode('',$tags);
     }
 
-    /**
-     * Create a select range field.
-     *
-     * @param  string  $name
-     * @param  string  $begin
-     * @param  string  $end
-     * @param  string  $selected
-     * @param  array   $options
-     * @return string
-     */
-    public function selectRange($name, $begin, $end, $selected = null, $options = array())
-    {
-        $this->getErrorClass($name,$options);
-        $tags = array();
-        $tags['input'] = parent::selectRange($name, $begin, $end, $selected, $options);
-        $tags['error'] = $this->getErrorTag($name);
-        return implode('',$tags);
-    }
-
-    /**
-     * Create a select month field.
-     *
-     * @param  string  $name
-     * @param  string  $selected
-     * @param  array   $options
-     * @return string
-     */
-    public function selectMonth($name, $selected = null, $options = array(), $format = '')
-    {
-        $this->getErrorClass($name,$options);
-        $tags = array();
-        $tags['input'] = parent::selectMonth($name, $selected, $options);
-        $tags['error'] = $this->getErrorTag($name);
-        return implode('',$tags);
-    }
 
     /**
      * Create a label.
