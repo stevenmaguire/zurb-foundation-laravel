@@ -26,38 +26,67 @@ class When_Building_Label_Test extends PHPUnit_Framework_TestCase {
 
     public function test_Return_Label_Tag_With_Matching_Name() 
     {
-        $name = 'tim';
-        $this->errors->shouldReceive('has')->with($name)->once()->andReturn(false);
+        $name = 'tim_tom';
+        $label_text = ucwords(str_ireplace('_', ' ', $name));
+        
+        $this->errors->shouldReceive('has')->with($name)->andReturn(false);
         
         $result = $this->form->label($name);
 
-        $this->assertTrue(strpos($result,'for="'.$name.'"') !== false
-            && strpos($result,'<label') !== false);
+        /**
+         * Expected Output:
+         *  <label for="$name">$label_text</label>
+         */
+        $expected_tag = [
+          'tag' => 'label',
+          'content' => $label_text,
+          'attributes' => ['for' => $name]
+        ];
+        $this->assertTag( $expected_tag, $result, 'Label does not match the parameters.' );
     }    
 
     public function test_Return_Label_Tag_With_Matching_Name_And_Error_Class_While_Errors() 
     {
         $name = 'tim';
-        $this->errors->shouldReceive('has')->with($name)->once()->andReturn(true);
+        $label_text = ucwords(str_ireplace('_', ' ', $name));
+
+        $this->errors->shouldReceive('has')->with($name)->andReturn(true);
         
         $result = $this->form->label($name);
 
-        $this->assertTrue(strpos($result,'for="'.$name.'"') !== false
-            && strpos($result,'<label') !== false
-            && strpos($result,'class="error"') !== false);
+        /**
+         * Expected Output:
+         *  <label for="$name" class="error">$label_text</label>
+         */
+        $expected_tag = [
+          'tag' => 'label',
+          'content' => $label_text,
+          'attributes' => [
+            'for' => $name,
+            'class' => 'error',
+          ],
+        ];
+        $this->assertTag( $expected_tag, $result, 'Label with error does not match the parameters.' );
     } 
 
     public function test_Return_Label_Tag_With_Matching_Name_And_Value() 
     {
         $name = 'tim';
         $value = 'Eric';
-        $this->errors->shouldReceive('has')->with($name)->once()->andReturn(false);
+        $this->errors->shouldReceive('has')->with($name)->andReturn(false);
         
         $result = $this->form->label($name,$value);
 
-        $this->assertTrue(strpos($result,'for="'.$name.'"') !== false
-            && strpos($result,'<label') !== false
-            && strpos($result,'>'.$value.'</label') !== false);
+        /**
+         * Expected Output:
+         *  <label for="$name" class="error">$value</label>
+         */
+        $expected_tag = [
+          'tag' => 'label',
+          'content' => $value,
+          'attributes' => [ 'for' => $name ],
+        ];
+        $this->assertTag( $expected_tag, $result, 'Label with error does not match the parameters.' );
     }    
 
 
