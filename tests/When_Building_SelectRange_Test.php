@@ -1,75 +1,68 @@
 <?php
 
-use Illuminate\Config\Repository;
-use Illuminate\Support\MessageBag;
-use Stevenmaguire\Foundation\FormBuilder as FormBuilder;
-use Mockery as m;
+class When_Building_SelectRange_Test extends Form_Builder_Test_Case
+{
 
-class When_Building_SelectRange_Test extends PHPUnit_Framework_TestCase {
-
-    protected $html;
-    protected $url;
-    protected $csrfToken;
-    protected $translator;    
-    protected $errors;
-
-    public function setUp()
-    {
-        $this->html = new Illuminate\Html\HtmlBuilder;
-        $this->url = m::mock('Illuminate\Routing\UrlGenerator');
-        $this->csrfToken = '';
-        $this->translator = m::mock('Illuminate\Translation\Translator');
-        $this->errors = m::mock('Illuminate\Support\MessageBag');
-
-        $this->form = new FormBuilder($this->html,$this->url,$this->csrfToken,$this->translator,$this->errors);
-    }
-    public function test_Return_Select_Tag_With_Matching_Name() 
+    public function test_It_Can_Return_Select_Tag_With_Matching_Name()
     {
         $name = 'tim';
         $start = 1;
-        $end = 4;        
+        $end = 4;
         $this->errors->shouldReceive('has')->with($name)->times(4)->andReturn(false);
-        
-        $result = $this->form->selectRange($name,$start,$end);
+        $expected_select_tag = [
+            'tag' => 'select',
+            'attributes' => ['name' => $name]
+        ];
 
-        $this->assertTrue(strpos($result,'name="'.$name.'"') !== false
-            && strpos($result,'<select') !== false);
-    }    
+        $result = $this->form->selectRange($name, $start, $end);
 
-    public function test_Return_Select_Tag_With_Matching_Name_And_Selected_Value_In_Numeric_Array() 
+        $this->assertTag($expected_select_tag, $result);
+    }
+
+    public function test_It_Can_Return_Select_Tag_With_Matching_Name_And_Selected_Value_In_Numeric_Array()
     {
         $name = 'tim';
         $selectedValue = 2;
         $start = 1;
         $end = 4;
         $this->errors->shouldReceive('has')->with($name)->times(4)->andReturn(false);
-        
-        $result = $this->form->selectRange($name,$start,$end,$selectedValue);
+        $expected_select_tag = [
+            'tag' => 'select',
+            'attributes' => ['name' => $name],
+            'child' => [
+                'tag' => 'option',
+                'content' => (string) $selectedValue,
+                'attributes' => ['value' => $selectedValue, 'selected' => 'selected']
+            ]
+        ];
 
-        $this->assertTrue(strpos($result,'name="'.$name.'"') !== false
-            && strpos($result,'<select') !== false
-            && strpos($result,'selected="selected">'.$selectedValue.'</option>') !== false);                
-    }        
+        $result = $this->form->selectRange($name, $start, $end, $selectedValue);
 
-    public function test_Return_Select_Tag_With_Matching_Name_And_Error_Class_While_Errors() 
+        $this->assertTag($expected_select_tag, $result);
+    }
+
+    public function test_It_Can_Return_Select_Tag_With_Matching_Name_And_Error_Class_While_Errors()
     {
         $name = 'tim';
         $start = 1;
-        $end = 4;        
+        $end = 4;
         $errors = array('Error message');
         $this->errors->shouldReceive('has')->with($name)->times(4)->andReturn(true);
         $this->errors->shouldReceive('get')->with($name)->twice()->andReturn($errors);
-        
-        $result = $this->form->selectRange($name,$start,$end);
+        $expected_select_tag = [
+            'tag' => 'select',
+            'attributes' => ['name' => $name],
+        ];
+        $expected_message_tag = [
+            'tag' => 'small',
+            'attributes' => ['class' => 'error'],
+            'content' => implode(' ',$errors)
+        ];
 
-        $this->assertTrue(strpos($result,'name="'.$name.'"') !== false
-            && strpos($result,'<select') !== false
-            && strpos($result,'class="error"') !== false
-            && strpos($result,'<small class="error">'.implode(' ',$errors).'</small>') !== false);
-    } 
+        $result = $this->form->selectRange($name, $start, $end);
 
-    public function tearDown()
-    {
-        m::close();
+        $this->assertTag($expected_select_tag, $result);
+        $this->assertTag($expected_message_tag, $result);
     }
+
 }

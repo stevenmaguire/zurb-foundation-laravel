@@ -1,68 +1,50 @@
 <?php
 
-use Illuminate\Config\Repository;
-use Illuminate\Support\MessageBag;
-use Stevenmaguire\Foundation\FormBuilder as FormBuilder;
-use Mockery as m;
+class When_Building_Label_Test extends Form_Builder_Test_Case
+{
 
-class When_Building_Label_Test extends PHPUnit_Framework_TestCase {
-
-    protected $html;
-    protected $url;
-    protected $csrfToken;
-    protected $translator;    
-    protected $errors;
-
-    public function setUp()
-    {
-        $this->html = new Illuminate\Html\HtmlBuilder;
-        $this->url = m::mock('Illuminate\Routing\UrlGenerator');
-        $this->csrfToken = '';
-        $this->translator = m::mock('Illuminate\Translation\Translator');
-        $this->errors = m::mock('Illuminate\Support\MessageBag');
-
-        $this->form = new FormBuilder($this->html,$this->url,$this->csrfToken,$this->translator,$this->errors);
-    }
-
-    public function test_Return_Label_Tag_With_Matching_Name() 
+    public function test_It_Can_Return_Label_Tag_With_Matching_Name()
     {
         $name = 'tim';
         $this->errors->shouldReceive('has')->with($name)->once()->andReturn(false);
-        
+        $expected_label_tag = [
+            'tag' => 'label',
+            'attributes' => ['for' => $name]
+        ];
+
         $result = $this->form->label($name);
 
-        $this->assertTrue(strpos($result,'for="'.$name.'"') !== false
-            && strpos($result,'<label') !== false);
-    }    
+        $this->assertTag($expected_label_tag, $result);
+    }
 
-    public function test_Return_Label_Tag_With_Matching_Name_And_Error_Class_While_Errors() 
+    public function test_It_Can_Return_Label_Tag_With_Matching_Name_And_Error_Class_While_Errors()
     {
         $name = 'tim';
         $this->errors->shouldReceive('has')->with($name)->once()->andReturn(true);
-        
+        $expected_label_tag = [
+            'tag' => 'label',
+            'attributes' => ['for' => $name, 'class' => 'error']
+        ];
+
         $result = $this->form->label($name);
 
-        $this->assertTrue(strpos($result,'for="'.$name.'"') !== false
-            && strpos($result,'<label') !== false
-            && strpos($result,'class="error"') !== false);
-    } 
+        $this->assertTag($expected_label_tag, $result);
+    }
 
-    public function test_Return_Label_Tag_With_Matching_Name_And_Value() 
+    public function test_It_Can_Return_Label_Tag_With_Matching_Name_And_Value()
     {
         $name = 'tim';
         $value = 'Eric';
         $this->errors->shouldReceive('has')->with($name)->once()->andReturn(false);
-        
-        $result = $this->form->label($name,$value);
+        $expected_label_tag = [
+            'tag' => 'label',
+            'attributes' => ['for' => $name],
+            'content' => $value
+        ];
 
-        $this->assertTrue(strpos($result,'for="'.$name.'"') !== false
-            && strpos($result,'<label') !== false
-            && strpos($result,'>'.$value.'</label') !== false);
-    }    
+        $result = $this->form->label($name, $value);
 
-
-    public function tearDown()
-    {
-        m::close();
+        $this->assertTag($expected_label_tag, $result);
     }
+
 }

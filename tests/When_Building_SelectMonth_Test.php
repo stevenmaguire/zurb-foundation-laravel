@@ -1,70 +1,63 @@
 <?php
 
-use Illuminate\Config\Repository;
-use Illuminate\Support\MessageBag;
-use Stevenmaguire\Foundation\FormBuilder as FormBuilder;
-use Mockery as m;
+class When_Building_SelectMonth_Test extends Form_Builder_Test_Case
+{
 
-class When_Building_SelectMonth_Test extends PHPUnit_Framework_TestCase {
-
-    protected $html;
-    protected $url;
-    protected $csrfToken;
-    protected $translator;    
-    protected $errors;
-
-    public function setUp()
-    {
-        $this->html = new Illuminate\Html\HtmlBuilder;
-        $this->url = m::mock('Illuminate\Routing\UrlGenerator');
-        $this->csrfToken = '';
-        $this->translator = m::mock('Illuminate\Translation\Translator');
-        $this->errors = m::mock('Illuminate\Support\MessageBag');
-
-        $this->form = new FormBuilder($this->html,$this->url,$this->csrfToken,$this->translator,$this->errors);
-    }
-    public function test_Return_Select_Tag_With_Matching_Name() 
+    public function test_It_Can_Return_Select_Tag_With_Matching_Name()
     {
         $name = 'tim';
         $this->errors->shouldReceive('has')->with($name)->times(4)->andReturn(false);
-        
+        $expected_select_tag = [
+            'tag' => 'select',
+            'attributes' => ['name' => $name]
+        ];
+
         $result = $this->form->selectMonth($name);
 
-        $this->assertTrue(strpos($result,'name="'.$name.'"') !== false
-            && strpos($result,'<select') !== false);
-    }    
+        $this->assertTag($expected_select_tag, $result);
+    }
 
-    public function test_Return_Select_Tag_With_Matching_Name_And_Selected_Value_In_Numeric_Array() 
+    public function test_It_Can_Return_Select_Tag_With_Matching_Name_And_Selected_Value_In_Numeric_Array()
     {
         $name = 'tim';
         $selectedValue = 2;
         $selectedLabel = 'February';
         $this->errors->shouldReceive('has')->with($name)->times(4)->andReturn(false);
-        
-        $result = $this->form->selectMonth($name,$selectedValue);
+        $expected_select_tag = [
+            'tag' => 'select',
+            'attributes' => ['name' => $name],
+            'child' => [
+                'tag' => 'option',
+                'content' => $selectedLabel,
+                'attributes' => ['selected' => 'selected']
+            ]
+        ];
 
-        $this->assertTrue(strpos($result,'name="'.$name.'"') !== false
-            && strpos($result,'<select') !== false
-            && strpos($result,'selected="selected">'.$selectedLabel.'</option>') !== false);                    
-    }       
+        $result = $this->form->selectMonth($name, $selectedValue);
 
-    public function test_Return_Select_Tag_With_Matching_Name_And_Error_Class_While_Errors() 
+        $this->assertTag($expected_select_tag, $result);
+    }
+
+    public function test_It_Can_Return_Select_Tag_With_Matching_Name_And_Error_Class_While_Errors()
     {
         $name = 'tim';
         $errors = array('Error message');
         $this->errors->shouldReceive('has')->with($name)->times(4)->andReturn(true);
         $this->errors->shouldReceive('get')->with($name)->twice()->andReturn($errors);
-        
+        $expected_select_tag = [
+            'tag' => 'select',
+            'attributes' => ['name' => $name],
+        ];
+        $expected_message_tag = [
+            'tag' => 'small',
+            'attributes' => ['class' => 'error'],
+            'content' => implode(' ',$errors)
+        ];
+
         $result = $this->form->selectMonth($name);
 
-        $this->assertTrue(strpos($result,'name="'.$name.'"') !== false
-            && strpos($result,'<select') !== false
-            && strpos($result,'class="error"') !== false
-            && strpos($result,'<small class="error">'.implode(' ',$errors).'</small>') !== false);
-    } 
-
-    public function tearDown()
-    {
-        m::close();
+        $this->assertTag($expected_select_tag, $result);
+        $this->assertTag($expected_message_tag, $result);
     }
+
 }
