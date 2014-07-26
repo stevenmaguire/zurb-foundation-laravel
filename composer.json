@@ -1,10 +1,14 @@
 {
     "name": "stevenmaguire/zurb-foundation-laravel",
-    "description": "Build HTML form elements for Foundation 4 inside Laravel 4",
-    "authors": [
+    "description": "Build HTML form elements for Foundation inside Laravel",
+    "keywords" : ["laravel","foundation","php","responsive","forms"],
+    "license" : "GPL-3.0",
+    "authors" : [
         {
-            "name": "Steven Maguire",
-            "email": "steven@stevenmaguire.com"
+            "name" : "Steven Maguire",
+            "email" : "stevenmaguire@gmail.com",
+            "homepage" : "http://stevenmaguire.com",
+            "role" : "Developer"
         }
     ],
     "require": {
