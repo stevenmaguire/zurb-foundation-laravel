@@ -65,12 +65,11 @@ class FormBuilder extends \Illuminate\Html\FormBuilder
      * Create a password input field.
      *
      * @param  string  $name
-     * @param  string  $value
      * @param  array   $options
      *
      * @return string
      */
-    public function password($name, $value = NULL, $options = [])
+    public function password($name, $options = [])
     {
         $this->addErrorClass($name, $options);
         $tags['input'] = parent::password($name, $options);
